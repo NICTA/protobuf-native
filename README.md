@@ -120,8 +120,8 @@ Protobuf Mangling Guide
 This is a temporary measure until we make a post-processor for protobuf header
 files.
 
-1. Inline functions need to be un-inlined so they are linkable.
-   If you see something like:
+- Inline functions need to be un-inlined so they are linkable.
+  If you see something like:
 
 ```
 Exception when trying to run compile-time code:
@@ -144,8 +144,8 @@ inline void Name::clear_firstname() {
 
 Remove the `inline` from both of these.
 
-2. When you see the linker error that some function could not be found, it is
-   probably still marked inline. Such as:
+- When you see the linker error that some function could not be found, it is
+  probably still marked inline. Such as:
 
 ```
 Undefined symbols for architecture x86_64:
@@ -174,10 +174,10 @@ function. I.e.
   inline void set_email(const char* value, size_t size);
 ```
 
-3. We currently exchange protobuf values via "set and delete". If you see the linker error that an `add_x(x *)` symbol is missing, then "set and delete" needs to
-   be implemented for that field `x`. For example, if the `Graph::add_nodes(Node*)`
-   function is missing we need to add the following function and declaration to the
-   header file:
+- We currently exchange protobuf values via "set and delete". If you see the linker error that an `add_x(x *)` symbol is missing, then "set and delete" needs to
+  be implemented for that field `x`. For example, if the `Graph::add_nodes(Node*)`
+  function is missing we need to add the following function and declaration to the
+  header file:
 
 ```
 // in the class
