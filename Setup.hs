@@ -12,14 +12,15 @@ main = defaultMainWithHooks simpleUserHooks {
 
 buildCPlusPlus :: PackageDescription -> LocalBuildInfo -> UserHooks -> BuildFlags -> IO ()
 buildCPlusPlus pkg buildInfo hooks flags = do
+  -- library
+  progc "clang++" flags
+    ["-stdlib=libc++", "-o", "cbits/hsprotobuf.o", "-c", "cbits/hsprotobuf.cc"]
   case executables pkg of
     [Executable {exeName = "protobuf-native-test"}] -> do
       progc "clang++" flags
         ["-stdlib=libc++", "-o", "tests/person.pb.o", "-c", "tests/person.pb.cc"]
-    [] ->
-      -- library
-      progc "clang++" flags
-        ["-stdlib=libc++", "-o", "cbits/hsprotobuf.o", "-c", "cbits/hsprotobuf.cc"]
+    [] -> return ()
+    e -> error $ "unknown build target: " ++ show e
   buildHook simpleUserHooks pkg buildInfo hooks flags
 
 progc prog flags cc_flags = do
