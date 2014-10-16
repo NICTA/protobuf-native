@@ -399,7 +399,7 @@ typeinfo t
   where
     typeinfo' innerT x
       | innerT == ''Maybe = let (i, y, z) = typeinfo x in (MaybeP i, y, z)
-      -- | innerT == ''V.Vector = let (_, y, z) = typeinfo x in (Vector, y, z)
+        -- possible: | innerT == ''V.Vector = let (_, y, z) = typeinfo x in (Vector, y, z)
       | otherwise = error $ "type info not implemented for: " ++ show innerT
     typeinfoList x =
       let (_, y, z) = typeinfo x in (Vector, y, z)
