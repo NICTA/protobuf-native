@@ -14,7 +14,7 @@ maintainer:          maxwell.swadling@nicta.com.au
 copyright:           Copyright (c) 2014, National ICT Australia Limited (NICTA)
 category:            Data
 build-type:          Custom
-extra-source-files:  README.md
+extra-source-files:  README.md, tests/person.pb.h
 cabal-version:       >=1.10
 
 library
